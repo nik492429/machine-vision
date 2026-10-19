@@ -1,0 +1,10 @@
+# Needs nvidia-container-toolkit on the host (native Linux or Docker Engine in WSL2)
+services:
+  build:
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]

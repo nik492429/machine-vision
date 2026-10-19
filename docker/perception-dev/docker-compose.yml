@@ -1,0 +1,22 @@
+# Select a target: docker compose --env-file jetson.env|x86.env -f docker-compose.yml -f docker-compose.<jetson|x86|wsl>.yml ...
+services:
+  build:
+    build:
+      context: .
+      dockerfile: Dockerfile.build
+      args:
+        BASE_IMAGE: ${BASE_IMAGE:-nvcr.io/nvidia/l4t-jetpack:r36.4.0}
+        CUDA_ARCHS: ${CUDA_ARCHS:-87}
+    image: perception-build:humble-${TAG:-jp6}
+    network_mode: host
+    ipc: host
+    privileged: true
+    stdin_open: true
+    tty: true
+    environment:
+      - DISPLAY=${DISPLAY}
+      - ROS_DOMAIN_ID=${ROS_DOMAIN_ID:-0}
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - ./ws:/workspace
+      - ${DATASETS_DIR:-./datasets}:/datasets

@@ -1,0 +1,10 @@
+# WSL2 + WSLg: add on top of docker-compose.x86.yml for RViz/Gazebo windows
+services:
+  build:
+    environment:
+      - WAYLAND_DISPLAY=${WAYLAND_DISPLAY}
+      - XDG_RUNTIME_DIR=/mnt/wslg/runtime-dir
+      - PULSE_SERVER=/mnt/wslg/PulseServer
+    volumes:
+      - /mnt/wslg:/mnt/wslg
+      - /usr/lib/wsl:/usr/lib/wsl
